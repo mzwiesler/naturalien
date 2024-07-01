@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "naturalien"
+version = "0.1.0"
+description = ""
+authors = ["Maximilian Zwiesler <maximilian.zwiesler@mercedes-benz.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+sqlmodel = "^0.0.19"
+streamlit = "^1.36.0"
+python-dotenv = "^1.0.1"
+fastapi = "^0.111.0"
+pyodbc = "^5.1.0"
+azure-identity = "^1.17.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.2"
+flake8 = "^7.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
