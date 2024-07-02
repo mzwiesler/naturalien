@@ -39,6 +39,8 @@ def get_last_n_items_of_inventory(session: Session, n: int = 10) -> List[Invento
 
 def sqlmodel_to_df(objs: List[SQLModel]) -> pd.DataFrame:
     """Convert a SQLModel objects into a pandas DataFrame."""
+    if len(objs) == 0:
+        return pd.DataFrame()
     records = [i.model_dump() for i in objs]
     sqlmodel_class = objs[0].__class__
     df = pd.DataFrame.from_records(records)
