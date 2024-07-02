@@ -2,16 +2,10 @@ FROM --platform=linux/amd64 python:3.11-slim as builder
 
 RUN pip install poetry==1.6.1
 
-ARG ARTIFACTORY_USER \
-    ARTIFACTORY_TOKEN
-
 # Note: We belive that we don't expose secrets ONLY because we are using a multi-stage build
 ENV POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=1 \
-    POETRY_VIRTUALENVS_CREATE=1 \
-    POETRY_HTTP_BASIC_ARTIFACTORY_USERNAME=$ARTIFACTORY_USER \
-    POETRY_HTTP_BASIC_ARTIFACTORY_PASSWORD=$ARTIFACTORY_TOKEN 
-
+    POETRY_VIRTUALENVS_CREATE=1
 
 WORKDIR /app
 

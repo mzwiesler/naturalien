@@ -15,10 +15,10 @@ class ItemType(StrEnum):
 
 
 class InventoryItem(SQLModel, table=True):
-    id: int = Field(default=None, primary_key=True)
     date: datetime
     item: ItemType
     quantity: float
+    id: int = Field(default=None, primary_key=True)
 
 
 def add_item(session: Session, item: InventoryItem):
@@ -40,7 +40,9 @@ def get_last_n_items_of_inventory(session: Session, n: int = 10) -> List[Invento
 def sqlmodel_to_df(objs: List[SQLModel]) -> pd.DataFrame:
     """Convert a SQLModel objects into a pandas DataFrame."""
     records = [i.model_dump() for i in objs]
+    sqlmodel_class = objs[0].__class__
     df = pd.DataFrame.from_records(records)
+    df = df[sqlmodel_class.__fields__.keys()]
     return df
 
 

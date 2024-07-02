@@ -25,6 +25,7 @@ TOKEN_URL = "https://database.windows.net/"  # The token URL for any Azure SQL d
 connection_string = os.environ["AZURE_SQL_CONNECTIONSTRING"]
 
 
+# The provide token function is wrapped to enable local development in docker.
 def get_func():
     @event.listens_for(engine, "do_connect")
     def provide_token(dialect, conn_rec, cargs, cparams):
@@ -46,6 +47,8 @@ if "UID" in connection_string.upper():
         "mssql+pyodbc", query={"odbc_connect": connection_string}
     )
     engine = create_engine(connection_string, pool_timeout=120)
+elif "sqlite:///" in connection_string:
+    engine = create_engine(connection_string)
 else:
     engine = create_engine(connection_string, pool_timeout=120)
     get_func()
